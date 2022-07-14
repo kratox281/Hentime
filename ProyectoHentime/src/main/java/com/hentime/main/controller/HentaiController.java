@@ -1,6 +1,5 @@
 package com.hentime.main.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,47 +12,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hentime.main.exception.UserNotFoundException;
-import com.hentime.main.model.User;
-import com.hentime.main.service.UserService;
+import com.hentime.main.exception.HentaiNotFoundException;
+
+import com.hentime.main.model.Hentai;
+import com.hentime.main.service.HentaiService;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/hentais")
+public class HentaiController {
 
 	@Autowired
-	private UserService service;
+	private HentaiService service;
 	
-	@GetMapping("/{id}")
-	public User findById(@PathVariable("id") Integer id) throws Exception {
-		//System.out.println(id);
-		System.out.println(service.findById(id).toString())	;
+	@GetMapping("{id}")
+	public Hentai findById(@PathVariable("id") Integer id) throws Exception {	
+		System.out.println(service.findById(id).toString());
 		return service.findById(id);
 	}
 	
 	@GetMapping
-	public List<User> listAll() throws Exception{
+	public List<Hentai> listAll() throws Exception{
 		return service.list();
+		
 	}
 	
 	@PostMapping
-	public User save(@RequestBody User u) throws Exception {
-		service.save(u);
-		return service.findByName(u);
+	public Hentai save(@RequestBody Hentai h) throws Exception {
+		service.save(h);
+		return service.findByName(h);
 	}
 	
 	@PutMapping
-	public User update(@RequestBody User u) throws Exception{
-		service.update(u);
-		return service.findById(u.getIdUser());
+	public Hentai update(@RequestBody Hentai h) throws Exception{
+		service.update(h);
+		return service.findById(h.getIdHentai());
 	}
 	
 	@DeleteMapping("{id}")
-	public boolean delete(@PathVariable("id") Integer id) throws Exception {
+	public boolean delete(@PathVariable("id") Integer id) throws Exception{
 		if (service.findById(id) == null) {
-			throw new UserNotFoundException("ID NO ENCONTRADO " + id);
+			throw new HentaiNotFoundException("ID NO ENCONTRADO " + id);
 		}
 		return service.delete(id);
-		
 	}
 }
