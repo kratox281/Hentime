@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="User")
+@Table(name ="user")
 public class User {
+	
+	//-ATRIBUTOS-
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +22,12 @@ public class User {
 	
 	@Column
 	private String email;
+	
+	//-CONSTRUCTOR-
 
-	public User() {
-		super();
-	}
+	public User() {	}
+	
+	//-METODOS-
 
 	@Override
 	public String toString() {

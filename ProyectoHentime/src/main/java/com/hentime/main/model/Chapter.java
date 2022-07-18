@@ -2,14 +2,19 @@ package com.hentime.main.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="Chapter")
+@Table(name ="chapter")
 public class Chapter {
+	
+	//-ATRIBUTOS-
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +23,19 @@ public class Chapter {
 	@Column
 	private String chapterName;
 	
-	@Column
-	private String hentaiFather;
+    @ManyToOne
+    @JoinColumn(name = "id_hentai", nullable = false, foreignKey = @ForeignKey(name = "FK_hentai_chapter"))
+	private Hentai hentai;
+
+    //-CONSTRUCTOR-
+    
+	public Chapter() {}
 	
-	public Chapter() {
-		super();
+	//-METODOS-
+
+	@Override
+	public String toString() {
+		return "Chapter [idChapter=" + idChapter + ", chapterName=" + chapterName + "]";
 	}
 
 	public Integer getIdChapter() {
@@ -41,18 +54,12 @@ public class Chapter {
 		this.chapterName = chapterName;
 	}
 
-	public String getHentaiFather() {
-		return hentaiFather;
+	public Hentai getHentaiFather() {
+		return hentai;
 	}
 
-	public void setHentaiFather(String hentaiFather) {
-		this.hentaiFather = hentaiFather;
-	}
-
-	@Override
-	public String toString() {
-		return "Chapter [idChapter=" + idChapter + ", chapterName=" + chapterName + ", hentaiFather=" + hentaiFather
-				+ "]";
+	public void setHentaiFather(Hentai hentaiFather) {
+		this.hentai = hentaiFather;
 	}
 	
 	
